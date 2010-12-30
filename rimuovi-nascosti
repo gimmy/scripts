@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rm -if ._* ._*.*  # rimuove file nascosti e chiede prima di farlo
