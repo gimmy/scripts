@@ -1,0 +1,21 @@
+#!/bin/bash
+if test -e $HOME/.lockSvuotaCestino ; then
+sleep 2;
+else
+	touch .lockSvuotaCestino
+	let numeroElementi=`ls -1 -a $HOME/.local/share/Trash/files/ | wc -l`-2
+	if [ $numeroElementi == 0 ]; then
+		notify-send -i emptytrash "Cestino già  vuoto" "Il cestino non contiene elementi"
+	else
+		if rm -r $HOME/.local/share/Trash/files/* >> /dev/null; then
+			notify-send -i emptytrash "Cestino svuotato" "Il cestino è stato svuotato correttamente"
+		else
+			notify-send -i edittrash "Cestino non svuotato" "Errori nello svuotamento. Il cestino potrebbe contenere ancora elementi. Controllarne i permessi"
+                        if zenity  --question --title "Svuota cestino" --text  "Vuoi svuotare il cestino con i permessi di root?" ; then
+				gksudo "rm -r $HOME/.local/share/Trash/files/"
+			fi
+		fi
+	fi
+sleep 2;
+rm $HOME/.lockSvuotaCestino
+fi
