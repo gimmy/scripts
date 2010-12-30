@@ -1,3 +1,9 @@
 #!/bin/bash
 
-rm -if ._* ._*.*  # rimuove file nascosti e chiede prima di farlo
+if [ -z $1 ]
+then
+	rm -if ._* ._*.*  # rimuove file nascosti e chiede prima di farlo
+else
+	echo "Rimuovo file nascosti in $1"
+	rm -if $1 ._* ._*.*  # rimuove file nascosti e chiede prima di farlo
+fi

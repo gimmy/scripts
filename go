@@ -2,24 +2,34 @@
 # ToDo: aggiungere controllo parametro -X
 # controllo rete
 
-meta=$1 #salvo la meta dove andare
-
-if meta!= "casa" || "poisson" || "dm":
+if [ -z $1 ]
+then
 	echo "Dove vuoi andare?"
 
-if meta=="casa":
+meta=$1 #salvo la meta dove andare
+
+if [meta=="casa"]
+then
 	host="gimmy.homelinux.net" # imposto host alla meta
 #	host="192.168.1.95" # (collegamento in locale: controllare impostazioni di rete)
 
-if meta=="poisson":
+fi
+
+if [meta=="poisson"]
+then
 	host="poisson.phc.unipi.it"
 #	host="poisson" # (collegamento in loale)
 
-if meta=="dm":
+fi
+
+if [meta=="dm"]
+then
 	host="ssh.dm.unipi.it"
-else:
+fi
+
+else
 	echo "Nulla"
 
-ssh $host
+#ssh $host
 
 fi
