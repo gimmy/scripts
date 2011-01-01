@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#if [ -z $1 ]
+#then
+#	rm -if ._* ._*.*  # rimuove file nascosti e chiede prima di farlo
+#else
+#	pwd > $HOME/.dir-attuale
+#	cd $1
+#	echo "Rimuovo file nascosti in $1"
+#	rm -if ._* ._*.*  # rimuove file nascosti
+#	cd $HOME/.dir-attuale
+#fi
+
+#find . -maxdepth 3 -name *.*.* -exec rm --verbose {} \;
+find . -maxdepth 2 -perm +a=x -exec rm --verbose {} \;

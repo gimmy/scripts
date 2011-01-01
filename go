@@ -1,10 +1,11 @@
 #!/bin/bash
 # ToDo: aggiungere controllo parametro -X
-# controllo rete
+# controllo rete - notifica vocale? 
 
 if [ -z $1 ]
 then
-	echo "Dove vuoi andare?"
+	echo -e "\033[31m Dove volevi andare?"
+#	echo -e "\033[01;31m Dove volevi andare?"
 else
 
 	META=$1 #salvo la meta dove andare
@@ -19,6 +20,7 @@ fi
 
 if [ $META == "poisson" ]
 then
+	echo "Collegamento a Poisson in corso..."
 	HOST="poisson.phc.unipi.it"
 #	HOST="poisson" # (collegamento in loale)
 
@@ -26,6 +28,7 @@ fi
 
 if [ $META == "dm" ]
 then
+	echo "Collegamento a dm.unipi.it in corso..."
 	HOST="ssh.dm.unipi.it"
 fi
 
