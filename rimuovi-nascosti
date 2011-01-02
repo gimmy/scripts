@@ -1,0 +1,4 @@
+#!/bin/bash
+
+find . -maxdepth 3 -name ._* -exec rm --verbose {} \;
+

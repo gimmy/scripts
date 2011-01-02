@@ -4,8 +4,8 @@
 
 if [ -z $1 ]
 then
-	echo -e "\033[31m Dove volevi andare?"
-#	echo -e "\033[01;31m Dove volevi andare?"
+	echo -e "\033[01;31m \t ...dove volevi andare?"
+#	echo -e "\033[31m Dove volevi andare?"
 else
 
 	META=$1 #salvo la meta dove andare
