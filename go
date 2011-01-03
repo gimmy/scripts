@@ -1,10 +1,11 @@
 #!/bin/bash
 # ToDo: aggiungere controllo parametro -X
-# controllo rete - notifica vocale? 
+# controllo rete - notifica vocale?
 
 if [ -z $1 ]
 then
-	echo -e "\033[01;31m \t ...dove volevi andare?"
+	echo -e "\033[01;31m \t ...dove volevi andare?\033[00;38m"
+#	echo  "\033[00;34mprova testo a seguire"
 #	echo -e "\033[31m Dove volevi andare?"
 else
 
@@ -12,7 +13,7 @@ else
 
 if [ $META == "casa" ]
 then
-	echo "Collegamento a Nash in corso..."
+	echo -e "\033[34m \t Collegamento a Nash in corso...\033[00;38m"
 #	HOST="gimmy.homelinux.net" # imposto host alla meta
 	HOST="192.168.1.95" # (collegamento in locale: controllare impostazioni di rete)
 
@@ -20,8 +21,8 @@ fi
 
 if [ $META == "poisson" ]
 then
-	echo "Collegamento a Poisson in corso..."
-	HOST="poisson.phc.unipi.it"
+	echo -e "\t Collegamento a Poisson in corso..."
+	HOST="brocchi@poisson.phc.unipi.it"
 #	HOST="poisson" # (collegamento in loale)
 
 fi
@@ -29,9 +30,8 @@ fi
 if [ $META == "dm" ]
 then
 	echo "Collegamento a dm.unipi.it in corso..."
-	HOST="ssh.dm.unipi.it"
+	HOST="brocchi@ssh.dm.unipi.it"
 fi
 
 ssh $HOST
-
 fi
