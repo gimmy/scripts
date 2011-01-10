@@ -1,0 +1,3 @@
+#!/bin/bash
+
+for i in *.JPG ; do mv "$i" "`basename "$i" .JPG`".jpg ; done

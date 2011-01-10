@@ -12,4 +12,4 @@
 #fi
 
 #find . -maxdepth 3 -name *.*.* -exec rm --verbose {} \;
-find . -maxdepth 2 -perm +a=x -exec rm --verbose {} \;
+find . -maxdepth 2 -perm +a=x -exec rm -i --verbose {} \;

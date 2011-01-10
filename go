@@ -6,7 +6,7 @@ if [ -z $1 ]
 then
 	echo -e "\033[01;31m \t ...dove volevi andare?\033[00;38m"
 #	echo  "\033[00;34mprova testo a seguire"
-#	echo -e "\033[31m Dove volevi andare?"
+#	echo -e "\033[37m Dove volevi andare?"
 else
 
 	META=$1 #salvo la meta dove andare
@@ -21,9 +21,9 @@ fi
 
 if [ $META == "poisson" ]
 then
-	echo -e "\t Collegamento a Poisson in corso..."
+	echo -e "\033[01;33m \t Collegamento a Poisson in corso...\033[00;38m"
 	HOST="brocchi@poisson.phc.unipi.it"
-#	HOST="poisson" # (collegamento in loale)
+#	HOST="brocchi@poisson" # (collegamento in loale)
 
 fi
 
