@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+	DEPTH=3 # profondità di ricerca di default
+else
+	DEPTH=$1
+fi
+
+FOUND=$(find . -maxdepth $DEPTH -type d -empty -exec echo {} \;) # cerca e stampa le cartelle vuote
+
+echo $FOUND
+
+if [ -z $FOUND ]
+then
+	echo "Nessuna cartella vuota a questa profondità"
+else
+	echo "Rimuovere le cartelle vuote? [y/n]"; read Rm
+	if [ $Rm == 'y' ]; then
+		rmdir $FOUND -v -p
+	else
+		exit
+	fi
+fi
+
+# to remove empty folder run: rmdir $(cartelle_vuote)
+#find . -maxdepth 3 -type d -empty -exec rmdir --verbose {} \;

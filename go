@@ -8,14 +8,14 @@ then
 #	echo  "\033[00;34mprova testo a seguire"
 #	echo -e "\033[37m Dove volevi andare?"
 else
-	TEST=$(route -n | awk '{ print $3 | "grep 255.255.255."}'  | sed s/255.255.255.//)
-	if [  $TEST == '128' ] # controlla la rete
+	TEST=$(route -n | awk '{ print $3 | "grep 255.255.255."}' | sed s/255.255.255.// | line)
+	if [  $TEST == "128" ] # controlla la rete
 	then
 		FROM="PHC"
 	else
 		TEST=$(avahi-browse -at | grep v4 | grep Nash | awk '{ print $5}')
 		#TEST=$() # con un ping?
-		if [  $TEST == "[00:60:97:8e:f4:d0]" ]
+		if [  $TEST == '[00:60:97:8e:f4:d0]' ]
 		then
 			FROM="casa"
 		fi
@@ -37,7 +37,7 @@ fi
 if [ $META == "poisson" ]
 then
 	echo -e "\033[01;33m \t Collegamento a Poisson in corso...\033[00;38m"
-	if [ $FROM != "PHC" ]
+	if [ $FROM != 'PHC' ]
 	then
 		HOST="brocchi@poisson.phc.unipi.it"
 	else
