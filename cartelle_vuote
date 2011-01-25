@@ -1,4 +1,5 @@
 #!/bin/bash
+# script di Gianmarco Brocchi - Gimmy per rimuovere le cartelle vuote
 
 if [ -z $1 ]
 then
@@ -9,19 +10,15 @@ fi
 
 FOUND=$(find . -maxdepth $DEPTH -type d -empty -exec echo {} \;) # cerca e stampa le cartelle vuote
 
-echo $FOUND
-
 if [ -z $FOUND ]
 then
 	echo "Nessuna cartella vuota a questa profondità"
 else
+	find . -maxdepth $DEPTH -type d -empty -exec echo {} \; # stampa le cartelle vuote
 	echo "Rimuovere le cartelle vuote? [y/n]"; read Rm
 	if [ $Rm == 'y' ]; then
-		rmdir $FOUND -v -p
+		find . -maxdepth $DEPTH -type d -empty -exec rmdir -v -p {} \; # rimuovo parents con verbose
 	else
 		exit
 	fi
 fi
-
-# to remove empty folder run: rmdir $(cartelle_vuote)
-#find . -maxdepth 3 -type d -empty -exec rmdir --verbose {} \;
