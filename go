@@ -21,7 +21,7 @@ netmask = re.findall(r"(\d+.\d+.\d+.\d+)(/\d+)", output)[0] # controllo la masch
 if netmask[1] == "/128":
         connesso_da = "PHC"
 else:
-	if netmask[0] == "129.168.1.136" and netmask[1] == "/24": # controllo sull'ip di casa
+	if netmask[0] == "192.168.1.136" and netmask[1] == "/24": # controllo sull'ip di casa
 		connesso_da = "casa"
 	# gestire gli errori: check out of range se nash non connesso
 #        p = subprocess.Popen(["ping", "-c 1", "Nash"],stdout=subprocess.PIPE) # faccio un ping a Nash
