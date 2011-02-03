@@ -14,14 +14,15 @@ except:
 	sys.exit()
 
 # Controllo dove sono connesso
-p = subprocess.Popen(["ip", "address", "show", "eth1"],stdout=subprocess.PIPE)
+p = subprocess.Popen(["ip", "route"],stdout=subprocess.PIPE)
 output = p.communicate()[0]
-netmask = re.findall(r"(\d+.\d+.\d+.\d+)(/\d+)", output)[0] # controllo la maschera di rete   
+mio_ip = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output)[0] # controllo la maschera di rete   
 
-if netmask[1] == "/128":
+if mio_ip[0] == "131.114.10.0": # controllo con ip
+#if netmask[1] == "128": # controllo con maschera di rete
         connesso_da = "PHC"
 else:
-	if netmask[0] == "192.168.1.136" and netmask[1] == "/24": # controllo sull'ip di casa
+	if mio_ip[0] == "192.168.1.136" and mio_ip[1] == "24": # controllo sull'ip di casa
 		connesso_da = "casa"
 	# gestire gli errori: check out of range se nash non connesso
 #        p = subprocess.Popen(["ping", "-c 1", "Nash"],stdout=subprocess.PIPE) # faccio un ping a Nash
@@ -31,7 +32,7 @@ else:
 #                connesso_da = "casa"
 	else:
 		connesso_da = "fuori"
-print "Parto.. ..connessi da %s" % connesso_da
+print "Parto...connessi da %s" % connesso_da
 
 if dove == "nash":
 	print ("\t Collegamento a Nash in corso...")
@@ -47,6 +48,13 @@ if dove == "poisson":
 		os.system("ssh brocchi@poisson.phc.unipi.it")
 	else:
 		os.system("ssh brocchi@poisson")
+
+if dove == "fourier":
+	print ("\t Collegamento a Fourier...")
+	if connesso_da == "PHC":
+		os.system("ssh brocchi@fourier")
+	else:
+		print ("\t ...ehm, non sei in PHC")
 
 if dove == "dm":
 	print ("\t Collegamento a ssh.dm.unipi.it in corso...")
