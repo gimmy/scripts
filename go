@@ -33,7 +33,8 @@ else:
 		        output_ping = ping.communicate()[0]
 		        check = re.findall(r"\d+.\d+.\d+.\d+", output_ping)[0] 
 		        if check == "192.168.1.95": # e controllo l'ip
-	                	connesso_da = "casa - Nash collegato"
+	                	connesso_da = "casa" 
+				print "Nash collegato"
 			else:
 				connesso_da = "casa - Nash non collegato"
 				sys.exit() 
