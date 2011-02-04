@@ -16,27 +16,35 @@ except:
 # Controllo dove sono connesso
 p = subprocess.Popen(["ip", "route"],stdout=subprocess.PIPE)
 output = p.communicate()[0]
-mio_ip = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output)[0] # controllo la maschera di rete   
+netmask = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output)[0] # controllo la maschera di rete   
 
-if mio_ip[0] == "131.114.10.0": # controllo con ip
+q = subprocess.Popen(["ip", "addr", "show", "eth1"],stdout=subprocess.PIPE)
+output_ip = q.communicate()[0]
+ip = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output_ip)[0] # controllo l'ip asseggnato   
+
+if netmask[0] == "131.114.10.0": # controllo con ip
 #if netmask[1] == "128": # controllo con maschera di rete
         connesso_da = "PHC"
 else:
-	if mio_ip[0] == "192.168.1.136" and mio_ip[1] == "24": # controllo sull'ip di casa
+	if ip[0] == "192.168.1.136" and ip[1] == "24": # controllo sull'ip di casa
 		connesso_da = "casa"
-	# gestire gli errori: check out of range se nash non connesso
-#        p = subprocess.Popen(["ping", "-c 1", "Nash"],stdout=subprocess.PIPE) # faccio un ping a Nash
-#        output = p.communicate()[0]
-#        check = re.findall(r"\d+.\d+.\d+.\d+", output)[0] 
-#        if check == "192.168.1.95": # e controllo l'ip
-#                connesso_da = "casa"
+		if dove == "nash":
+		        ping = subprocess.Popen(["ping", "-c 1", "Nash"],stdout=subprocess.PIPE) # faccio un ping a Nash
+		        output_ping = ping.communicate()[0]
+		        check = re.findall(r"\d+.\d+.\d+.\d+", output_ping)[0] 
+		        if check == "192.168.1.95": # e controllo l'ip
+	                	connesso_da = "casa - Nash collegato"
+			else:
+				connesso_da = "casa - Nash non collegato"
+				sys.exit() 
+		# gestire gli errori: check out of range se nash non connesso
 	else:
 		connesso_da = "fuori"
 print "Parto...connessi da %s" % connesso_da
 
 if dove == "nash":
 	print ("\t Collegamento a Nash in corso...")
-# Cambio a seconda di dove sono connesso
+	# Cambio a seconda di dove sono connesso
 	if connesso_da != "casa":
 		os.system("ssh gimmy@gimmy.homelinux.net")
 	else:
