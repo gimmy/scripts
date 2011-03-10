@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-# ToDo: aggiungere controllo parametro -X, compattare in lista
-# notifica vocale?
+# ToDo: aggiungere controllo parametro -X, notifica vocale?
 
 import sys, os
 import re, subprocess
@@ -48,7 +47,7 @@ print "Parto...connessi da %s" % colora(4, connesso_da)
 # Impostazioni connessione: Pronti al lancio
 
 if dove == "nash":
-	dove = colora(34, dove)
+	dove_color = colora(34, dove)
 	user = "gimmy"
 	# Cambio a seconda di dove sono connesso
 	if connesso_da != "casa":
@@ -56,41 +55,28 @@ if dove == "nash":
 	else:
 		host = "nash"
 
-if dove == "poisson":
-	dove = colora(4, dove)
+if dove == "dm":
+	dove_color = colora(35, "ssh.dm.unipi.it")
 	user = "brocchi"
-	if connesso_da != "PHC":
-		host = "poisson.phc.unipi.it"
-	else:
-		host = "poisson"
-# PHC
+	host = "ssh.dm.unipi.it"
 
-phc = ["fourier","daphne"]
+# PHC
+phc = ["poisson","fourier","daphne"]
 for i in phc:
 	if dove == i:
-		if connesso_da != "PHC":
-			print (colora(31, "\t ...ehm, non sei in PHC"))
-			sys.exit()
-		else:
-			user = "brocchi"
-			#print "Collegamento a %s --> ssh %s@%s" % (colora(4,dove), colora(31,user), colora(32,dove))
+		user = "brocchi"
+		if connesso_da == "PHC":
 			host = dove
+			dove_color = colora(4,dove)
+		else:
+			host = dove+"poisson.phc.unipi.it"
+			dove_color = colora(33, dove)
 
-if dove == "dm":
-	dove = (4, "ssh.dm.unipi.it")
-	user = "brocchi"
-	host= "ssh.dm.unipi.it"
-
-#if dove !="nash" and dove != "poisson" and dove != "fourier" and dove != "dm":
-#if dove !=["nash","poisson","fourier","dm","daphne"]:
-#	print "\tNon ho ben capito dove sia %s" % colora(4, dove)
-#	sys.exit()
-
-# for i in phc:
-# 	if dove != i:
-# 		print "\tNon ho ben capito dove sia %s" % colora(4, dove)
-# 		sys.exit()
+mete = ["nash","dm"]+phc
+if not dove in mete:
+	print "\tNon ho ben capito dove sia %s" % colora(4, dove)
+	sys.exit()
 
 # Lancio
-print "Collegamento a %s --> ssh %s@%s" % (dove, colora(31,user), colora(32,host))
+print "Collegamento a %s --> ssh %s@%s" % (dove_color, colora(31,user), colora(32,host))
 os.system("ssh %s@%s" % (user, host))
