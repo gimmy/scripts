@@ -69,7 +69,7 @@ for i in phc:
 			host = dove
 			dove_color = colora(4,dove)
 		else:
-			host = dove+"poisson.phc.unipi.it"
+			host = dove+".phc.unipi.it"
 			dove_color = colora(33, dove)
 
 mete = ["nash","dm"]+phc
