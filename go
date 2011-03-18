@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+# baco da risolvere su controllo nash con ping
 # ToDo: aggiungere controllo parametro -X, notifica vocale?
 
 import sys, os
@@ -28,17 +28,6 @@ if netmask[0] == "131.114.10.0": # controllo con ip
 else:
 	if ip[0] == "192.168.1.136" and ip[1] == "24": # controllo sull'ip di casa
 		connesso_da = "casa"
-		if dove == "nash":
-		        ping = subprocess.Popen(["ping", "-c 1", "Nash"],stdout=subprocess.PIPE) # faccio un ping a Nash
-		        output_ping = ping.communicate()[0]
-		        check = re.findall(r"\d+.\d+.\d+.\d+", output_ping)[0] 
-		        if check == "192.168.1.95": # e controllo l'ip
-	                	connesso_da = "casa" 
-				print "Nash collegato"
-			else:
-				connesso_da = "casa - Nash non collegato"
-				sys.exit() 
-		# gestire gli errori: check out of range se nash non connesso
 	else:
 		connesso_da = "fuori"
 
@@ -47,6 +36,25 @@ print "Parto...connessi da %s" % colora(4, connesso_da)
 # Impostazioni connessione: Pronti al lancio
 
 if dove == "nash":
+	if connesso_da == "casa":
+		ping = subprocess.Popen(["ping", "-c 1", "Nash"],stdout=subprocess.PIPE) # faccio un ping a Nash
+		output_ping = ping.communicate()[0]
+		check = re.findall(r"\d+.\d+.\d+.\d+", output_ping)[0] 
+		
+		if check == "192.168.1.95": # e controllo l'ip
+			connesso_da = "casa" 
+			print "Nash collegato"
+		else:
+			connesso_da = "casa - Nash non collegato"
+			sys.exit() 
+	else:
+		ping = subprocess.Popen(["ping", "-c 1", "gimmy.homelinux.net"],stdout=subprocess.PIPE) # faccio un ping a Nash
+		output_ping = ping.communicate()[0]
+		check = int(re.findall(r"(\d+)% packet loss", output_ping)[0]) 
+		print "Nash sembra essere collegato ( %d %% )" % (100-check)
+	# gestire gli errori: check out of range se nash non connesso
+
+# Collegamento efefttivo a Nash
 	dove_color = colora(34, dove)
 	user = "gimmy"
 	# Cambio a seconda di dove sono connesso
