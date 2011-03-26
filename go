@@ -18,14 +18,14 @@ p = subprocess.Popen(["ip", "route"],stdout=subprocess.PIPE)
 output = p.communicate()[0]
 netmask = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output)[0] # controllo la maschera di rete   
 
-q = subprocess.Popen(["ip", "addr", "show", "eth1"],stdout=subprocess.PIPE)
-output_ip = q.communicate()[0]
-ip = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output_ip)[0] # controllo l'ip asseggnato   
-
-if netmask[0] == "131.114.10.0": # controllo con ip
+if netmask[0] == "131.114.10.0": # controllo l'ip
 #if netmask[1] == "128": # controllo con maschera di rete
         connesso_da = "PHC"
 else:
+	q = subprocess.Popen(["ip", "addr", "show", "eth1"],stdout=subprocess.PIPE) # possibile cambio con wlan0
+	output_ip = q.communicate()[0]
+	ip = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output_ip)[0] # controllo l'ip asseggnato   
+	
 	if ip[0] == "192.168.1.136" and ip[1] == "24": # controllo sull'ip di casa
 		connesso_da = "casa"
 	else:
