@@ -1,5 +1,4 @@
 #!/usr/bin/python
-# baco da risolvere su controllo nash con ping
 # ToDo: aggiungere controllo parametro -X, notifica vocale?
 
 import sys, os
@@ -22,7 +21,7 @@ if netmask[0] == "131.114.10.0": # controllo l'ip
 #if netmask[1] == "128": # controllo con maschera di rete
         connesso_da = "PHC"
 else:
-	q = subprocess.Popen(["ip", "addr", "show", "eth1"],stdout=subprocess.PIPE) # possibile cambio con wlan0
+	q = subprocess.Popen(["ip", "addr", "show", "wlan0"],stdout=subprocess.PIPE)
 	output_ip = q.communicate()[0]
 	ip = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output_ip)[0] # controllo l'ip asseggnato   
 	
@@ -34,7 +33,6 @@ else:
 print "Parto...connessi da %s" % colora(4, connesso_da)
 
 # Impostazioni connessione: Pronti al lancio
-
 if dove == "nash":
 	if connesso_da == "casa":
 		ping = subprocess.Popen(["ping", "-c 1", "Nash"],stdout=subprocess.PIPE) # faccio un ping a Nash
@@ -68,8 +66,7 @@ if dove == "dm":
 	user = "brocchi"
 	host = "ssh.dm.unipi.it"
 
-# PHC
-phc = ["poisson","fourier","daphne"]
+phc = ["poisson","fourier","daphne"] # PHC
 for i in phc:
 	if dove == i:
 		user = "brocchi"
