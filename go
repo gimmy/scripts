@@ -33,7 +33,7 @@ else:
 print "Parto...connessi da %s" % colora(4, connesso_da)
 
 # Impostazioni connessione: Pronti al lancio
-if dove == "nash":
+if dove == "nash": # controllo se Nash e' collegato
 	if connesso_da == "casa":
 		ping = subprocess.Popen(["ping", "-c 1", "Nash"],stdout=subprocess.PIPE) # faccio un ping a Nash
 		output_ping = ping.communicate()[0]
@@ -52,7 +52,7 @@ if dove == "nash":
 		print "Nash sembra essere collegato ( %d %% )" % (100-check)
 	# gestire gli errori: check out of range se nash non connesso
 
-# Collegamento efefttivo a Nash
+# Collegamento effettivo a Nash
 	dove_color = colora(34, dove)
 	user = "gimmy"
 	# Cambio a seconda di dove sono connesso
@@ -77,7 +77,18 @@ for i in phc:
 			host = dove+".phc.unipi.it"
 			dove_color = colora(33, dove)
 
-mete = ["nash","dm"]+phc
+home = ["jarvis", "silvana-laptop", "fede-laptop"]
+for i in home:
+	if dove == i:
+		user = "gimmy"
+		if connesso_da == "casa":
+			host = dove
+			dove_color = colora(36,dove)
+		else:
+			print "\t Non sei a casa"
+			sys.exit()
+
+mete = ["nash","dm"]+phc+home
 if not dove in mete:
 	print "\tNon ho ben capito dove sia %s" % colora(4, dove)
 	sys.exit()
