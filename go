@@ -13,8 +13,8 @@ except:
 	sys.exit()
 
 # Controllo dove sono connesso
-p = subprocess.Popen(["ip", "route"],stdout=subprocess.PIPE)
-output = p.communicate()[0]
+sub = subprocess.Popen(["ip", "route"],stdout=subprocess.PIPE)
+output = sub.communicate()[0]
 netmask = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output)[0] # controllo la maschera di rete   
 
 if netmask[0] == "131.114.10.0": # controllo l'ip
@@ -49,7 +49,7 @@ if dove == "nash": # controllo se Nash e' collegato
 		ping = subprocess.Popen(["ping", "-c 1", "gimmy.homelinux.net"],stdout=subprocess.PIPE) # faccio un ping a Nash
 		output_ping = ping.communicate()[0]
 		check = int(re.findall(r"(\d+)% packet loss", output_ping)[0]) 
-		print "Nash sembra essere collegato ( %d %% )" % (100-check)
+		print "Nash collegato al %d %%" % (100-check)
 	# gestire gli errori: check out of range se nash non connesso
 
 # Collegamento effettivo a Nash
@@ -66,18 +66,27 @@ if dove == "dm":
 	user = "brocchi"
 	host = "ssh.dm.unipi.it"
 
-phc = ["poisson","fourier","daphne"] # PHC
-for i in phc:
-	if dove == i:
-		user = "brocchi"
-		if connesso_da == "PHC":
-			host = dove
-			dove_color = colora(4,dove)
-		else:
-			host = dove+".phc.unipi.it"
-			dove_color = colora(33, dove)
+phc = {"a":"apollo",
+       "b":"brucaliffo",
+       "c":"cassiopea",
+       "d":"daphne", 
+       "e":"escher",
+       "f":"fourier",
+       "g":"geppetto", 
+       "h":"hitchhiker",       
+       "p":"poisson"} # PHC
 
-home = ["jarvis", "silvana-laptop", "fede-laptop"]
+while phc.has_key(dove):
+	dove = phc[dove] # setto meta
+	user = "brocchi" # setto username
+	if connesso_da == "PHC":
+		host = dove
+		dove_color = colora(4,dove)
+	else:
+		host = dove+".phc.unipi.it"
+		dove_color = colora(33, dove)
+
+home = ["jarvis", "silvana-laptop", "fede-laptop"] # dizionriare anche qui
 for i in home:
 	if dove == i:
 		user = "gimmy"
@@ -88,6 +97,7 @@ for i in home:
 			print "\t Non sei a casa"
 			sys.exit()
 
+phc = ["apollo","brucaliffo","cassiopea","daphne","escher","fourier","geppetto","poisson"]
 mete = ["nash","dm"]+phc+home
 if not dove in mete:
 	print "\tNon ho ben capito dove sia %s" % colora(4, dove)
