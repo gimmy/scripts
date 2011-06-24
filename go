@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# ToDo: aggiungere controllo parametro -X, notifica vocale?
+# TODO: aggiungere controllo parametro -X, -p per ping a nash, notifica vocale?
 
 import sys, os
 import re, subprocess
@@ -86,7 +86,7 @@ while phc.has_key(dove):
 		host = dove+".phc.unipi.it"
 		dove_color = colora(33, dove)
 
-home = ["jarvis", "silvana-laptop", "fede-laptop"] # dizionriare anche qui
+home = ["jarvis", "silvana-laptop", "fede-laptop"] # dizionario anche qui
 for i in home:
 	if dove == i:
 		user = "gimmy"
@@ -98,6 +98,16 @@ for i in home:
 			sys.exit()
 
 phc = ["apollo","brucaliffo","cassiopea","daphne","escher","fourier","geppetto","poisson"]
+for i in phc:
+	if dove == i:
+		user = "brocchi"
+		if connesso_da == "PHC":
+			host = dove
+			dove_color = colora(36,dove)
+		else:
+			host = dove+".phc.unipi.it"
+			dove_color = colora(33, dove)
+
 mete = ["nash","dm"]+phc+home
 if not dove in mete:
 	print "\tNon ho ben capito dove sia %s" % colora(4, dove)
