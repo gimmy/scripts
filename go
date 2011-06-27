@@ -33,7 +33,7 @@ else:
 print "Parto...connessi da %s" % colora(4, connesso_da)
 
 # Impostazioni connessione: Pronti al lancio
-if dove == "nash": # controllo se Nash e' collegato
+if dove == "nash": 
 	if connesso_da == "casa":
 		ping = subprocess.Popen(["ping", "-c 1", "Nash"],stdout=subprocess.PIPE) # faccio un ping a Nash
 		output_ping = ping.communicate()[0]
@@ -46,10 +46,22 @@ if dove == "nash": # controllo se Nash e' collegato
 			connesso_da = "casa - Nash non collegato"
 			sys.exit() 
 	else:
-		ping = subprocess.Popen(["ping", "-c 1", "gimmy.homelinux.net"],stdout=subprocess.PIPE) # faccio un ping a Nash
-		output_ping = ping.communicate()[0]
-		check = int(re.findall(r"(\d+)% packet loss", output_ping)[0]) 
-		print "Nash collegato al %d %%" % (100-check)
+		print "Non sei connesso a casa"
+		sys.exit()
+
+if dove == "casa": 
+	# if connesso_da == "casa":
+	# 	ping = subprocess.Popen(["ping", "-c 1", "Russell"],stdout=subprocess.PIPE) # faccio un ping
+	# 	output_ping = ping.communicate()[0]
+	# 	check = re.findall(r"\d+.\d+.\d+.\d+", output_ping)[0] 
+		
+	# 	if check == "192.168.1.106": # e controllo l'ip
+	# 		connesso_da = "casa" 
+	# else:
+	# 	ping = subprocess.Popen(["ping", "-c 1", "gimmy.homelinux.net"],stdout=subprocess.PIPE)
+	# 	output_ping = ping.communicate()[0]
+	# 	check = int(re.findall(r"(\d+)% packet loss", output_ping)[0]) 
+	# 	print "Nash collegato al %d %%" % (100-check)
 	# gestire gli errori: check out of range se nash non connesso
 
 # Collegamento effettivo a Nash
@@ -59,7 +71,7 @@ if dove == "nash": # controllo se Nash e' collegato
 	if connesso_da != "casa":
 		host = "gimmy.homelinux.net"
 	else:
-		host = "nash"
+		host = "russell"
 
 if dove == "dm":
 	dove_color = colora(35, "ssh.dm.unipi.it")
@@ -86,7 +98,7 @@ while phc.has_key(dove):
 		host = dove+".phc.unipi.it"
 		dove_color = colora(33, dove)
 
-home = ["jarvis", "silvana-laptop", "fede-laptop"] # dizionario anche qui
+home = ["russell", "nash","jarvis", "silvana-laptop", "fede-laptop"] # dizionario anche qui
 for i in home:
 	if dove == i:
 		user = "gimmy"
@@ -108,7 +120,7 @@ for i in phc:
 			host = dove+".phc.unipi.it"
 			dove_color = colora(33, dove)
 
-mete = ["nash","dm"]+phc+home
+mete = ["casa","dm"]+phc+home
 if not dove in mete:
 	print "\tNon ho ben capito dove sia %s" % colora(4, dove)
 	sys.exit()
