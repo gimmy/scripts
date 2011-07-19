@@ -1,0 +1,38 @@
+#!/usr/bin/python
+
+def dot(x): 
+#	import re
+	strip = re.findall(r"\d+[.]", x)
+	if strip != []:
+		return x
+	else:
+		return 0
+
+import os, sys, re
+
+try:
+	rootdir = sys.argv[1]
+	print rootdir
+except:
+	print "non hai inserito la cartella da cui partire"
+	sys.exit()
+
+file_found = []
+for root, subFolders, files in os.walk(rootdir):
+
+#        for folder in subFolders:
+#            print "%s has subdirectory %s" % (root, folder)
+
+        for filename in files:
+            filePath = os.path.join(root, filename)    
+#            print filename + " path: %s \n" % filePath, 
+            file_found.append(filename)
+
+print file_found
+print "\nfiltro:",
+filtered_file = filter(dot, file_found)
+print filtered_file
+
+for i in filtered_file:
+	os.remove(i)
+            

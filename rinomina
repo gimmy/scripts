@@ -1,0 +1,4 @@
+#!/bin/bash
+# Rinomina più file
+
+for oldfile in *.JPG; do cp “$oldfile” “`basename “$oldfile”.JPG`.jpg”; done
