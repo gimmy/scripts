@@ -2,13 +2,14 @@
 
 def dot(x): 
 #	import re
-	strip = re.findall(r"\d+[.]", x)
+	strip = re.findall(r"\d+[.]\s", x)
 	if strip != []:
 		return x
 	else:
 		return 0
 
 import os, sys, re
+import shutil
 
 try:
 	rootdir = sys.argv[1]
@@ -18,6 +19,7 @@ except:
 	sys.exit()
 
 file_found = []
+file_path = []
 for root, subFolders, files in os.walk(rootdir):
 
 #        for folder in subFolders:
@@ -27,12 +29,29 @@ for root, subFolders, files in os.walk(rootdir):
             filePath = os.path.join(root, filename)    
 #            print filename + " path: %s \n" % filePath, 
             file_found.append(filename)
+	    file_path.append(filePath)
+
+# print file_path
+# print "\nfiltrato:",
+filtered_path = filter(dot, file_path)
+# print filtered_path
 
 print file_found
 print "\nfiltro:",
 filtered_file = filter(dot, file_found)
 print filtered_file
 
-for i in filtered_file:
-	os.remove(i)
-            
+# Remove file
+# for i in filtered_path:
+# 	print "Rimuovo %s" % i
+# 	os.remove(i)
+
+# Move file            
+# for i in filtered_path:
+# 	print "Sposto %s in Scrivania/double track" % i
+# 	shutil.move(i, "/home/gimmy/Scrivania/double\ track/")
+
+# Copy file            
+for i in filtered_path:
+	print "Copio %s in Scrivania/double_track" % i
+	shutil.copy(i, "/home/gimmy/Scrivania/double_track/")
