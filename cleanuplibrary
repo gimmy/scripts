@@ -39,7 +39,7 @@ for root, subFolders, files in os.walk(rootdir):
 #            print "%s has subdirectory %s" % (root, folder)
 
         for filename in files:
-            filePath = os.path.join(root, filename)    
+            filePath = os.path.join(root, filename)
 #            print filename + " path: %s \n" % filePath, 
             file_found.append(filename)
 	    file_path.append(filePath)
