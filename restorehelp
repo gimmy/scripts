@@ -1,0 +1,39 @@
+#!/usr/bin/python
+# Gianmarco Brocchi
+
+'''
+
+Script that help to restore files
+from a Déja-dup backup by hand.
+
+Use ./restorehelp multivolume_snapshot_path
+
+It merges the file in multivolume_snapshot.
+
+'''
+
+import os
+
+# check if the folder is the last folder
+
+def bool lastdir(folder):
+	for files in os.walk(folder):
+		if filename == "1":
+			return true
+
+try:
+	rootdir = sys.argv[1]
+#	print rootdir
+except:
+	print "Insert the multivolume_snapshot's path"
+	sys.exit()
+	
+for root, subFolders, files in os.walk(rootdir):
+
+	for folder in subFolders:
+		print "%s has subdirectory %s" % (root, folder)		
+		if ( lastdir(folder) ):
+			cat * > folder
+			
+		
+		

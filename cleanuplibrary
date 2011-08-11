@@ -1,7 +1,20 @@
 #!/usr/bin/python
+# Gianmarco Brocchi
+
+'''
+
+Search for file in a directory and
+in all subforlders, filter file name
+and copy, move or delete it.
+
+Use ./cleanuplibrary dir
+
+Remembere to check te copy or (re)move option!
+
+'''
 
 def dot(x): 
-#	import re
+#	remember to import regular expression
 	strip = re.findall(r"\d+[.]\s", x)
 	if strip != []:
 		return x
@@ -13,7 +26,7 @@ import shutil
 
 try:
 	rootdir = sys.argv[1]
-	print rootdir
+#	print rootdir
 except:
 	print "non hai inserito la cartella da cui partire"
 	sys.exit()
