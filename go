@@ -1,6 +1,13 @@
 #!/usr/bin/python
 # TODO: aggiungere controllo parametro -X, -p per ping a nash, notifica vocale?
 
+'''
+go
+A simple script to lookup where I am 
+in order to connect to ssh host faster.
+
+'''
+
 import sys, os
 import re, subprocess
 

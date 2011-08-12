@@ -12,17 +12,10 @@ It merges the file in multivolume_snapshot.
 
 '''
 
-## check if the folder is the last folder
-
-#def lastdir(folder):
-#	for root, dirs, files in os.walk(folder):
-#		for filename in files:
-#			print "file in %s: %s" % (folder, filename)
-#			if filename == "1":
-#				return true
-
 import os, sys
-from subprocess import call
+#from subprocess import call
+from glob import iglob
+import shutil
 
 try:
 	rootdir = sys.argv[1]
@@ -35,13 +28,16 @@ for root, subFolders, files in os.walk(rootdir):
 	for filename in files:
 		if filename == "1":
 			filePath = os.path.join(root)
-			all_file = filePath + "/*"
 			folder = os.path.basename(filePath)
-#			output = filePath + "/" + folder
 			outfile = filePath.replace('multivol_','',1)
-			print "Path: %s, folder: %s\noutput file: %s" % (filePath, folder, outfile)
 
 #	Implement "cat * > folder"
-			call(["cat " + all_file + ">" + outfile], shell=True)
+#			call(["cat " + all_file + ">" + outfile], shell=True)
+
+			destination = open(outfile, 'wb')
+			for filename in iglob(os.path.join(filePath, '*')):
+			    shutil.copyfileobj(open(filename, 'rb'), destination)
+			destination.close()
+			
 			print "Creo file: %s" % folder	
 	
