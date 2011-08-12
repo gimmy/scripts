@@ -34,10 +34,13 @@ for root, subFolders, files in os.walk(rootdir):
 #	Implement "cat * > folder"
 #			call(["cat " + all_file + ">" + outfile], shell=True)
 
-			destination = open(outfile, 'wb')
-			for filename in iglob(os.path.join(filePath, '*')):
-			    shutil.copyfileobj(open(filename, 'rb'), destination)
-			destination.close()
-			
-			print "Creo file: %s" % folder	
+# Check if file exists
+			if ( os.path.exists(outfile) == False ):
+				destination = open(outfile, 'wb')
+				for filename in iglob(os.path.join(filePath, '*')):
+					shutil.copyfileobj(open(filename, 'rb'), destination)
+				destination.close()
+				print "Creo file: %s" % folder
+			else:
+				print "File %s exists" % folder	
 	
