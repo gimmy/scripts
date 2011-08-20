@@ -37,7 +37,7 @@ else:
 	else:
 		connesso_da = "fuori"
 
-print "Parto...connessi da %s" % colora(4, connesso_da)
+print ('Parto...connessi da %s' % colora(4, connesso_da))
 
 # Impostazioni connessione: Pronti al lancio
 if dove == "nash": 
@@ -48,12 +48,12 @@ if dove == "nash":
 		
 		if check == "192.168.1.95": # e controllo l'ip
 			connesso_da = "casa" 
-			print "Nash collegato"
+			print ("Nash collegato")
 		else:
 			connesso_da = "casa - Nash non collegato"
 			sys.exit() 
 	else:
-		print "Non sei connesso a casa"
+		print ("Non sei connesso a casa")
 		sys.exit()
 
 if dove == "casa": 
@@ -113,7 +113,7 @@ for i in home:
 			host = dove
 			dove_color = colora(36,dove)
 		else:
-			print "\t Non sei a casa"
+			print ("\t Non sei a casa")
 			sys.exit()
 
 phc = ["apollo","brucaliffo","cassiopea","daphne","escher","fourier","geppetto","poisson"]
@@ -129,9 +129,9 @@ for i in phc:
 
 mete = ["casa","dm"]+phc+home
 if not dove in mete:
-	print "\tNon ho ben capito dove sia %s" % colora(4, dove)
+	print ("\tNon ho ben capito dove sia %s" % colora(4, dove))
 	sys.exit()
 
 # Lancio
-print "Collegamento a %s --> ssh %s@%s" % (dove_color, colora(31,user), colora(32,host))
+print ("Collegamento a %s --> ssh %s@%s" % (dove_color, colora(31,user), colora(32,host)))
 os.system("ssh %s@%s" % (user, host))

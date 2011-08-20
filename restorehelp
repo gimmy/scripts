@@ -29,7 +29,9 @@ for root, subFolders, files in os.walk(rootdir):
 		if filename == "1":
 			filePath = os.path.join(root)
 			folder = os.path.basename(filePath)
-			outfile = filePath.replace('multivol_','',1)
+			# outfile = filePath.replace('multivol_','',1) 
+			outfile = filePath + "/" + folder
+			print outfile
 
 #	Implement "cat * > folder"
 #			call(["cat " + all_file + ">" + outfile], shell=True)
