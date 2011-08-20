@@ -22,7 +22,7 @@ except:
 # Controllo dove sono connesso
 sub = subprocess.Popen(["ip", "route"],stdout=subprocess.PIPE)
 output = sub.communicate()[0]
-netmask = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output)[0] # controllo la maschera di rete   
+netmask = re.findall(b"(\d+.\d+.\d+.\d+)/(\d+)", output)[0] # controllo la maschera di rete   
 
 if netmask[0] == "131.114.10.0": # controllo l'ip
 #if netmask[1] == "128": # controllo con maschera di rete
@@ -30,7 +30,7 @@ if netmask[0] == "131.114.10.0": # controllo l'ip
 else:
 	q = subprocess.Popen(["ip", "addr", "show", "wlan0"],stdout=subprocess.PIPE)
 	output_ip = q.communicate()[0]
-	ip = re.findall(r"(\d+.\d+.\d+.\d+)/(\d+)", output_ip)[0] # controllo l'ip asseggnato   
+	ip = re.findall(b"(\d+.\d+.\d+.\d+)/(\d+)", output_ip)[0] # controllo l'ip asseggnato   
 	
 	if ip[0] == "192.168.1.136" and ip[1] == "24": # controllo sull'ip di casa
 		connesso_da = "casa"
@@ -95,7 +95,7 @@ phc = {"a":"apollo",
        "h":"hitchhiker",       
        "p":"poisson"} # PHC
 
-while phc.has_key(dove):
+while dove in phc:
 	dove = phc[dove] # setto meta
 	user = "brocchi" # setto username
 	if connesso_da == "PHC":
