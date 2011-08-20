@@ -32,7 +32,8 @@ else:
 	output_ip = q.communicate()[0]
 	ip = re.findall(b"(\d+.\d+.\d+.\d+)/(\d+)", output_ip)[0] # controllo l'ip asseggnato   
 	
-	if ip[0] == "192.168.1.136" and ip[1] == "24": # controllo sull'ip di casa
+	# decode for python 3
+	if ip[0].decode('utf-8') == "192.168.1.136" and ip[1].decode('utf-8') == "24": # controllo sull'ip di casa
 		connesso_da = "casa"
 	else:
 		connesso_da = "fuori"
