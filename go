@@ -24,7 +24,7 @@ sub = subprocess.Popen(["ip", "route"],stdout=subprocess.PIPE)
 output = sub.communicate()[0]
 netmask = re.findall(b"(\d+.\d+.\d+.\d+)/(\d+)", output)[0] # controllo la maschera di rete   
 
-if netmask[0] == "131.114.10.0": # controllo l'ip
+if netmask[0].decode('utf-8') == "131.114.10.0": # controllo l'ip
 #if netmask[1] == "128": # controllo con maschera di rete
         connesso_da = "PHC"
 else:
