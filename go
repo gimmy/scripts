@@ -19,6 +19,14 @@ except:
 	print(colora(31, "\t...dove volevi andare?"))
 	sys.exit()
 
+try:
+	opz = sys.argv[2] # parametri opzionali
+	if opz != 'X':
+		print(colora(31, "\t...come prego?"))
+		sys.exit()		
+except:
+	opz = ''
+
 # Controllo dove sono connesso
 sub = subprocess.Popen(["ip", "route"],stdout=subprocess.PIPE)
 output = sub.communicate()[0]
@@ -134,5 +142,9 @@ if not dove in mete:
 	sys.exit()
 
 # Lancio
-print ("Collegamento a %s --> ssh %s@%s" % (dove_color, colora(31,user), colora(32,host)))
-os.system("ssh %s@%s" % (user, host))
+if opz:
+	print ("Collegamento a %s --> ssh %s %s@%s" % (dove_color, colora(33,'-X'), colora(31,user), colora(32,host)))
+	os.system("ssh -X %s@%s" % (user, host))
+else:
+	print ("Collegamento a %s --> ssh %s@%s" % (dove_color, colora(31,user), colora(32,host)))
+	os.system("ssh %s@%s" % (user, host))
