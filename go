@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# TODO: aggiungere controllo parametro -X, -p per ping a nash, notifica vocale?
+# TODO: -p per ping prima di ssh (f.e. a casa), notifica vocale?
 
 '''
 go
@@ -30,15 +30,25 @@ except:
 # Controllo dove sono connesso
 sub = subprocess.Popen(["ip", "route"],stdout=subprocess.PIPE)
 output = sub.communicate()[0]
-netmask = re.findall(b"(\d+.\d+.\d+.\d+)/(\d+) dev tap0", output)[0] # controllo la maschera di rete   
+# netmask = re.findall(b"(\d+.\d+.\d+.\d+)/(\d+) dev tap0", output)[0] # controllo la maschera di rete   
 
-if netmask[0].decode('utf-8') == "131.114.10.0": # controllo l'ip
+if output == "": # controllo connessione
+	print(colora(31, "\t...sei collegato?"))
+	sys.exit()		
+
+netmask = re.findall(b"\d+.\d+.\d+.\d+", output)[0] # controllo la maschera di rete   
+
+if netmask.decode('utf-8') == "10.167.60.0": # controllo l'ip per la vpn
+	print(colora(31, "\t...hai attivato la vpn?"))
+	sys.exit()		
+
+if netmask.decode('utf-8') == "131.114.10.1":
 #if netmask[1] == "128": # controllo con maschera di rete
         connesso_da = "PHC"
 else:
 	q = subprocess.Popen(["ip", "addr", "show", "wlan0"],stdout=subprocess.PIPE)
 	output_ip = q.communicate()[0]
-	ip = re.findall(b"(\d+.\d+.\d+.\d+)/(\d+)", output_ip)[0] # controllo l'ip asseggnato   
+	ip = re.findall(b"(\d+.\d+.\d+.\d+)/(\d+)", output_ip)[0] # controllo l'ip assegnato   
 	
 	# decode for python 3
 	if ip[0].decode('utf-8') == "192.168.1.136" and ip[1].decode('utf-8') == "24": # controllo sull'ip di casa
@@ -80,11 +90,10 @@ if dove == "casa":
 	# 	print "Nash collegato al %d %%" % (100-check)
 	# gestire gli errori: check out of range se nash non connesso
 
-# Collegamento effettivo a Nash
 	dove_color = colora(34, dove)
 	user = "gimmy"
-	# Cambio a seconda di dove sono connesso
-	if connesso_da != "casa":
+
+	if connesso_da != "casa":  # Cambio a seconda di dove sono connesso
 		host = "gimmy.homelinux.net"
 	else:
 		host = "russell"
@@ -114,7 +123,7 @@ while dove in phc:
 		host = dove+".phc.unipi.it"
 		dove_color = colora(33, dove)
 
-home = ["russell", "nash","jarvis", "silvana-laptop", "fede-laptop"] # dizionario anche qui
+home = ["russell", "nash", "jarvis", "silvana-laptop", "fede-laptop"] # dizionario anche qui
 for i in home:
 	if dove == i:
 		user = "gimmy"
