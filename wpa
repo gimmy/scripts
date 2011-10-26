@@ -1,0 +1,26 @@
+#!/bin/bash
+clear
+echo "   [==>              ]"
+echo ">> Cerco la rete protetta a cui connettermi"
+sleep 0.7
+clear
+echo "   [======>          ]"
+echo ">> Inserisco la password..."
+wpa_supplicant -B -Dwext -iwlan0 -c /etc/wpa_supplicant.conf
+sleep 0.6
+clear
+echo "   [==========>      ]"
+echo ">> Provo a connettermi"
+sleep 0.2
+clear
+echo "   [===========>     ]"
+echo ">> Provo a connettermi"
+sleep 0.4
+clear
+echo "   [==============>  ]"
+echo ">> Mi connetto tramite dhcpcd"
+dhcpcd wlan0 
+clear
+echo "   [=================]"
+echo ">> Connesso! :)"
+echo ""
