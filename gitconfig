@@ -1,0 +1,11 @@
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	main-window-view = HistoryView
+	history-view-vpane-position = 408
+	file-view-vpane-position = 572
+[user]
+	email = brocchi@poisson.phc.unipi.it
+	name = Gianmarco Brocchi
+[color]
+	ui = auto
