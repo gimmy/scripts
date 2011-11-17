@@ -1,4 +1,4 @@
-(setq make-backup-file nil)
+(setq make-backup-files nil)
 ;; (tool-bar-mode nil)
 ;; (scroll-bar-mode nil)
 
