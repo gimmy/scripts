@@ -1,26 +1,39 @@
 #!/bin/bash
-clear
-echo "   [==>              ]"
-echo ">> Cerco la rete protetta a cui connettermi"
+
+# output color:
+# WHITE="\033[38;1m"
+# GREEN="\033[32;1m"
+# CLOSE="\033[0m"
+
+# ifconfig eth0 up
+# echo "   [==>              ]"
+echo -en "\033[32;1m::\033[0m \033[38;1mCerco la rete...\033[0m\t\t"
+echo -e  "\033[32;1m [ \033[0m\033[38;1mDone\033[0m\033[32;1m ] \033[0m"
+# echo "> Cerco la rete..."
 sleep 0.7
-clear
-echo "   [======>          ]"
-echo ">> Inserisco la password..."
-wpa_supplicant -B -Dwext -iwlan0 -c /etc/wpa_supplicant.conf
+#clear			       
+# echo "   [======>          ]"
+echo -en "\033[32;1m::\033[0m \033[38;1mInserisco password...\033[0m\t"
+echo -e  "\033[32;1m [ \033[0m\033[38;1mDone\033[0m\033[32;1m ] \033[0m"
+# echo "> Inserisco la password..."
+wpa_supplicant -B -Dwext -ieth0 -c /etc/wpa_supplicant.conf
 sleep 0.6
-clear
-echo "   [==========>      ]"
-echo ">> Provo a connettermi"
-sleep 0.2
-clear
-echo "   [===========>     ]"
-echo ">> Provo a connettermi"
+#clear
+# echo "   [==========>      ]"
+# echo "> Provo a connettermi"
+# sleep 0.2
+# #clear
+# echo "   [===========>     ]"
+# echo "> Provo a connettermi"
 sleep 0.4
-clear
-echo "   [==============>  ]"
-echo ">> Mi connetto tramite dhcpcd"
-dhcpcd wlan0 
-clear
-echo "   [=================]"
-echo ">> Connesso! :)"
-echo ""
+#clear
+# echo "   [==============>  ]"
+echo -en "\033[32;1m::\033[0m \033[38;1mAttivo dhcp\033[0m\t\t\t"
+echo -e  "\033[32;1m [ \033[0m\033[38;1mDone\033[0m\033[32;1m ] \033[0m"
+# echo "> Attivo dhcpcd"
+dhcpcd eth0 
+#clear
+# echo "   [=================]"
+echo -e "\033[32;1m >\033[0m \033[38;1mCollegato\033[0m\t\t\t"
+# echo -e  "\033[32;1m [ \033[0m\033[38;1mDone\033[0m\033[32;1m ] \033[0m"
+# echo "> Collegato"
