@@ -1,0 +1,35 @@
+#! /bin/bash
+# Basato su http://www.dei.unipd.it/~sbologna/backupinlinux3.html e modificato da Stefano Pompa stefano.pompa@gmail.com
+# Esegue il backup quotidiano ogni volta che un giorno e` passato senza backup.
+# Ogni settimana esegue anche il backup settimanale.
+
+# definisce dove mettere il log file
+log=/media/dati/stefano/backup/backup.log
+data_oggi=`date "+%Y%m%d"`
+
+timestamp_quotidiano=/media/dati/stefano/backup/backup_timestamp_quotidiano
+data_ultimo_backup_quotidiano=`stat --format=%y $timestamp_quotidiano | tr -d - | awk '{print $1}'`
+
+timestamp_settimanale=/media/dati/stefano/backup/backup_timestamp_settimanale
+data_ultimo_backup_settimanale=`stat --format=%y $timestamp_settimanale | tr -d - | awk '{print $1}'`
+
+date >> $log
+ if (( $data_oggi <= $data_ultimo_backup_quotidiano )); then
+ #    echo "    non faccio nulla" >> $log
+     exit 0;
+
+      fi
+       echo "    1 giorno è passato: inizio il backup..." >> $log
+        if (( $data_oggi - $data_ultimo_backup_settimanale >= 7 )); then
+            echo "    7 giorni sono passati: inizio il backup..." >> $log
+                /usr/bin/rsnapshot weekly && touch $timestamp_settimanale && echo "    SETTIMANALE ok!" >> $log
+                touch $timestamp_settimanale
+
+                 fi
+                  /usr/bin/rsnapshot daily && touch $timestamp_quotidiano && echo "    QUOTIDIANO ok!" >> $log
+                  touch $timestamp_quotidiano
+
+# backup lista pacchetti
+# pacman -Qqe > pkglist
+# recuperare con:
+# pacman -S $(cat pkglist)
