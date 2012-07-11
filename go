@@ -96,8 +96,8 @@ if dove == "casa":
 	if connesso_da != "casa":  # Cambio a seconda di dove sono connesso
 		host = "gimmy.homelinux.net"
 	else:
-		host = "ferrovecchio"
-		# host = "russell"
+		# host = "nabucco"
+		host = "pi"
 
 if dove == "dm":
 	dove_color = colora(35, "ssh.dm.unipi.it")
@@ -124,7 +124,7 @@ while dove in phc:
 		host = dove+".phc.unipi.it"
 		dove_color = colora(33, dove)
 
-home = ["ferrovecchio", "russell", "nash", "jarvis", "silvana-laptop", "fede-laptop"] # dizionario anche qui
+home = ["pi", "nabucco", "russell", "nash", "jarvis", "silvana-laptop", "fede-laptop"] # dizionario anche qui
 for i in home:
 	if dove == i:
 		user = "gimmy"
