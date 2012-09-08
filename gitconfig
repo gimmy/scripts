@@ -10,6 +10,9 @@
 [color]
 	ui = auto
 [alias]
+	s = status
+	c = commit -a
 	ci = commit -v
+	loglist = log --graph --pretty=oneline --abbrev-commit
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all

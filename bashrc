@@ -5,7 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 # alias sudo='sudo '
 alias pacman='pacman-color'
@@ -13,19 +12,23 @@ alias pacman='pacman-color'
 alias p='pacman'
 alias y='yaourt'
 
-
 export EDITOR="nano"
 
 # To auto complete after man and sudo
 complete -cf sudo
+complete -cf s # for shortcut s
 complete -cf man
-# complete -C git
+# autocomplete git command
+GIT_PS1_SHOWDIRTYSTATE=true
+# GIT_PS1_SHOWUNTRACKEDFILES=true
+source ~/.git-completion.sh
 
 # My alias
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -33,29 +36,9 @@ alias l='ls -CF'
 alias s='sudo '
 alias ss='s -s'
 
+alias o='xdg-open'
 alias archlinux='lynx www.archlinux.org'
 
-# less
-export LESS="-MWi -x4 --shift 5"
-export LESSHISTFILE="-"     # no less history file
-if [ "$UID" != 0 ]; then
-    # export LESSCHARSET="utf-8"
-    # if [ -z "$LESSOPEN" ]; then
-    #     if [ "$__distribution" = "Debian" ]; then
-    #         [ -x "`which lesspipe`" ] && eval "$(lesspipe)"
-    #     else
-    #         [ -x "`which lesspipe.sh`" ] && export LESSOPEN="|lesspipe.sh %s"
-    #     fi
-    # fi
-    # Yep, 'less' can colorize manpages
-    export LESS_TERMCAP_mb=$'\E[01;31m'
-    export LESS_TERMCAP_md=$'\E[01;31m'
-    export LESS_TERMCAP_me=$'\E[0m'
-    export LESS_TERMCAP_se=$'\E[0m'                           
-    export LESS_TERMCAP_so=$'\E[01;44;33m'                                 
-    export LESS_TERMCAP_ue=$'\E[0m'
-    export LESS_TERMCAP_us=$'\E[01;32m'
-fi
 
 # Bash History
 export HISTSIZE=5000
@@ -71,7 +54,8 @@ fi
 set_prompts() {
 
 # Default
-    PS1='\[\033[34m\]\u\[\033[00m\]\[\033[01;31m\]@\[\033[00m\]\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\][ \W ] \[\033[00m\]\$ '
+#    PS1='\[\033[34m\]\u\[\033[00m\]\[\033[01;31m\]@\[\033[00m\]\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\][ \W ] \[\033[00m\]\$ '
+    PS1='\[\033[34m\]\u\[\033[00m\]\[\033[01;31m\]@\[\033[00m\]\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\][ \W\[\033[01;33m\]$(__git_ps1 " (%s)")\[\033[00m\] \[\033[01;34m\]]\[\033[00m\] \[\033[00m\]\$ '
 
     export PS1
 }
