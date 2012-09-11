@@ -37,6 +37,7 @@ alias s='sudo '
 alias ss='s -s'
 
 alias o='xdg-open'
+alias diff='diff -y --suppress-common-lines'
 alias archlinux='lynx www.archlinux.org'
 
 
