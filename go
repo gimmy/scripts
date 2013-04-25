@@ -75,7 +75,7 @@ if dove == "nash":
 		print ("Non sei connesso a casa")
 		sys.exit()
 
-if dove == "casa": 
+if dove in ["casa", "pi"]: 
 	# if connesso_da == "casa":
 	# 	ping = subprocess.Popen(["ping", "-c 1", "Russell"],stdout=subprocess.PIPE) # faccio un ping
 	# 	output_ping = ping.communicate()[0]
@@ -91,12 +91,11 @@ if dove == "casa":
 	# gestire gli errori: check out of range se nash non connesso
 
 	dove_color = colora(34, dove)
-	user = "gimmy"
+	user = "pi"
 
 	if connesso_da != "casa":  # Cambio a seconda di dove sono connesso
-		host = "gimmy.homelinux.net"
+		host = "brocchi.dyndns.tv"
 	else:
-		# host = "nabucco"
 		host = "pi"
 
 if dove == "dm":
@@ -124,7 +123,7 @@ while dove in phc:
 		host = dove+".phc.unipi.it"
 		dove_color = colora(33, dove)
 
-home = ["pi", "nabucco", "russell", "nash", "jarvis", "silvana-laptop", "fede-laptop"] # dizionario anche qui
+home = ["nabucco", "russell", "nash", "jarvis", "silvana-laptop", "fede-laptop"] # dizionario anche qui
 for i in home:
 	if dove == i:
 		user = "gimmy"
@@ -146,7 +145,7 @@ for i in phc:
 			host = dove+".phc.unipi.it"
 			dove_color = colora(33, dove)
 
-mete = ["casa","dm"]+phc+home
+mete = ["casa", "pi", "dm"]+phc+home
 if not dove in mete:
 	print ("\tNon ho ben capito dove sia %s" % colora(4, dove))
 	sys.exit()
