@@ -1,0 +1,9 @@
+#!/bin/bash
+usage=`df -h / | awk '{print $5}' | grep -o '[0-9]*'`
+space=`expr 100 - $usage`
+if [ "$space" -gt "10" ]; then
+    echo -e "Spazio in root: $space%. OK\n"
+else
+    echo -e "Spazio in root: $space% -> Cancello un po' la cache\n"
+    find /var/cache/pacman/pkg -not -mtime -7 | sudo xargs rm ;
+fi
