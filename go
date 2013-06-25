@@ -103,6 +103,11 @@ if dove == "dm":
 	user = "brocchi"
 	host = "ssh.dm.unipi.it"
 
+if dove == "bhalo":
+	dove_color = colora(35, "srv-hs11.netsons.net")
+	user = "wpagvdfy"
+	host = "srv-hs11.netsons.net -p 65100"
+
 phc = {"a":"apollo",
        "b":"brucaliffo",
        "c":"cassiopea",
@@ -145,7 +150,7 @@ for i in phc:
 			host = dove+".phc.unipi.it"
 			dove_color = colora(33, dove)
 
-mete = ["casa", "pi", "dm"]+phc+home
+mete = ["casa", "pi", "dm", "bhalo"]+phc+home
 if not dove in mete:
 	print ("\tNon ho ben capito dove sia %s" % colora(4, dove))
 	sys.exit()
