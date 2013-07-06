@@ -26,6 +26,16 @@ comprimo = "tar -czvf "+location+" "+location+".sql"
 print comprimo
 os.system(comprimo)
 
+# Quando salvare anche altrove il backup
+giorno = time.strftime("%d")
+mese = time.strftime("%m")
+if giorno == "07":
+    print "Creo backup mensile in public_ftp/dbackup"
+    take_away_location = location.replace("dbackup", "public_ftp/dbackup")
+    take_away = "zip -P "+pw+" "+take_away_location+".zip "+location
+    print take_away
+    os.system(take_away)
+
 # Faccio le pulizie e il caffè
 pulisco = "rm -f "+location+".sql"
 print pulisco
