@@ -94,7 +94,7 @@ if dove in ["casa", "pi"]:
 	user = "pi"
 
 	if connesso_da != "casa":  # Cambio a seconda di dove sono connesso
-		host = "brocchi.dyndns.tv"
+		host = "brocchi.mooo.com"
 	else:
 		host = "pi"
 
