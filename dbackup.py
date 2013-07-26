@@ -29,6 +29,7 @@ os.system(comprimo)
 # Quando salvare anche altrove il backup
 giorno = time.strftime("%d")
 mese = time.strftime("%m")
+anno = time.strftime("%y")
 if giorno == "07":
     print "Creo backup mensile in public_ftp/dbackup"
     take_away_location = location.replace("dbackup", "public_ftp/dbackup")
@@ -40,3 +41,11 @@ if giorno == "07":
 pulisco = "rm -f "+location+".sql"
 print pulisco
 os.system(pulisco)
+
+# Pulizie di Primavera
+print "Cancello backup più vecchi di 20 giorni"
+location = location.replace(giorno, "*")
+location = location.replace(mese, "*")
+location = location.replace(anno, "*")
+clean_old = "find "+location+" -mtime +20 -exec rm {} \;"
+os.system(clean_old)
