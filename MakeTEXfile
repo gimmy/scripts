@@ -5,7 +5,7 @@ MAIN_TEX_SOURCE=$(NAME).tex
 AUX_SOURCE=$(NAME).aux
 # INDEX_SOURCE=$(NAME).toc
 SOURCE=*.tex chapters/*.tex
-TEMPFILES= *~ *.log *.toc
+TEMPFILES=*.aux *.out *.log *.toc *.nav *.snm  *~
 
 # output color:
 #COLOR="\033["
@@ -22,10 +22,12 @@ all: $(FINALPDF)
 	@echo -e $(INFO) $(WHITE)"Compiled"$(CLOSE)
 
 $(FINALPDF): $(AUX_SOURCE) $(SOURCE)
-	$(LATEX) $(MAIN_TEX_SOURCE)
+	@echo -en $(WORK) $(WHITE)"Compiling" $@ $(CLOSE); $(LATEX) $(MAIN_TEX_SOURCE) 2>&1 > /dev/null
+	@echo -e "\t"$(GREEN)[$(CLOSE)$(WHITE)"Done"$(CLOSE)$(GREEN)]$(CLOSE)
 
 $(AUX_SOURCE): $(MAIN_TEX_SOURCE) # $(SOURCE)
-	$(LATEX) $(MAIN_TEX_SOURCE)
+	@echo -en $(WORK) $(WHITE)"Compiling" $@ $(CLOSE); $(LATEX) $(MAIN_TEX_SOURCE) 2>&1 > /dev/null
+	@echo -e "\t"$(GREEN)[$(CLOSE)$(WHITE)"Done"$(CLOSE)$(GREEN)]$(CLOSE)
 
 clean:
 	@echo -e $(WORK) $(WHITE)"Clean useless files"$(CLOSE)
