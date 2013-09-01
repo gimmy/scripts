@@ -19,7 +19,6 @@ ARROW=$BLUE"->"$CLOSE
 echo -en $WORK $WHITE"Update mirrorlist"$CLOSE ;
 
 if [ -a "/etc/pacman.d/mirrorlist.pacnew" ]; then
-    # echo -e "\t" $INFO $WHITE"mirrorlist.pacnew found"$CLOSE ;
 
     # Backup mirrorlist and mirrorlist.pacnew
     echo -e "\n \t" $ARROW $WHITE"Backup mirrorlist"$CLOSE ;
@@ -32,16 +31,10 @@ if [ -a "/etc/pacman.d/mirrorlist.pacnew" ]; then
     echo -en "\t" $ARROW $WHITE"Generate new mirrorlist"$CLOSE ;
     sudo reflector -l4 -c France -c Germany -c Italy --sort rate --save /etc/pacman.d/mirrorlist ;
 
-    # If we have mirrorlist clean pacnew file
+    # If we have mirrorlist, clean pacnew file
     if [ -a "/etc/pacman.d/mirrorlist" ]; then
-	# echo -en "\t" $ARROW $WHITE"Clean up"$CLOSE ;
 	sudo rm /etc/pacman.d/mirrorlist.pacnew ;
     fi
-
-    # echo -e $GREEN [$CLOSE$WHITE"Done"$CLOSE$GREEN]$CLOSE ;
-
-# else
-#     echo -e $GREEN [$CLOSE$WHITE"Done"$CLOSE$GREEN]$CLOSE ;
 fi
 
 DIFF=$(diff $MIRRORLIST $MIRRORLIST.backup)
