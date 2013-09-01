@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Update Archlinux mirrorlist using reflector
+
+MIRRORLIST="/etc/pacman.d/mirrorlist"
+
+# output color:
+#COLOR="\033["
+WHITE="\033[38;1m"
+GREEN="\033[32;1m"
+BLUE="\033[34;1m"
+CLOSE="\033[0m"
+
+# prefixes:
+WORK=$BLUE"::"$CLOSE
+INFO=$GREEN" >"$CLOSE
+ARROW=$BLUE"->"$CLOSE
+
+echo -en $WORK $WHITE"Update mirrorlist"$CLOSE ;
+
+if [ -a "/etc/pacman.d/mirrorlist.pacnew" ]; then
+    # echo -e "\t" $INFO $WHITE"mirrorlist.pacnew found"$CLOSE ;
+
+    # Backup mirrorlist and mirrorlist.pacnew
+    echo -e "\n \t" $ARROW $WHITE"Backup mirrorlist"$CLOSE ;
+    if [ -a $MIRRORLIST ]; then
+	sudo mv $MIRRORLIST $MIRRORLIST.backup ;
+	sudo cp /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist_complete ;
+    fi
+
+    # Get best 4 mirror (near me)
+    echo -en "\t" $ARROW $WHITE"Generate new mirrorlist"$CLOSE ;
+    sudo reflector -l4 -c France -c Germany -c Italy --sort rate --save /etc/pacman.d/mirrorlist ;
+
+    # If we have mirrorlist clean pacnew file
+    if [ -a "/etc/pacman.d/mirrorlist" ]; then
+	# echo -en "\t" $ARROW $WHITE"Clean up"$CLOSE ;
+	sudo rm /etc/pacman.d/mirrorlist.pacnew ;
+    fi
+
+    # echo -e $GREEN [$CLOSE$WHITE"Done"$CLOSE$GREEN]$CLOSE ;
+
+# else
+#     echo -e $GREEN [$CLOSE$WHITE"Done"$CLOSE$GREEN]$CLOSE ;
+fi
+
+DIFF=$(diff $MIRRORLIST $MIRRORLIST.backup)
+if [ "$DIFF" != "" ]; then
+    echo " (Mirror change)" ;
+else
+    echo " (No new mirror)" ;
+fi
