@@ -18,23 +18,35 @@ location = location.replace("SEC", time.strftime("%S"))
 
 # Scarico
 dump = "mysqldump --opt --single-transaction -u "+user+" -p"+pw+" "+database+" > "+location+".sql"
-print dump
+print "Scarico db" #print dump
 os.system(dump)
 
 # Comprimo
 comprimo = "tar -czvf "+location+" "+location+".sql"
-print comprimo
+print "Comprimo il db" #print comprimo
 os.system(comprimo)
 
 # Quando salvare anche altrove il backup
 giorno = time.strftime("%d")
 mese = time.strftime("%m")
 anno = time.strftime("%y")
-if giorno == "07":
+if giorno == "01":
     print "Creo backup mensile in public_ftp/dbackup"
-    take_away_location = location.replace("dbackup", "public_ftp/dbackup")
-    take_away = "zip -P "+pw+" "+take_away_location+".zip "+location
-    print take_away
+    monthly_location = location.replace("dbackup", "public_ftp/dbackup")
+    monthly_backup = "zip -P "+pw+" "+monthly_location+".zip "+location
+    os.system(monthly_backup)
+    ## Take Away ##
+    print "preparo il Take Away..."
+    take_away_location = "/home/wpagvdfy/public_ftp/take_away/"
+    take_away = "cp "+monthly_location+".zip "+take_away_location
+    # # Cancello backup più vecchi
+    # clean_take_away_location = take_away_location.replace(giorno, "*")
+    # clean_take_away_location = take_away_location.replace(mese, "*")
+    # clean_take_away_location = take_away_location.replace(anno, "*")
+    clean_take_away= "find "+take_away_location+" -mtime +2 -exec rm {} \;"
+    print " pulisco.."
+    os.system(clean_take_away)
+    print " Creo nuovo take away.."
     os.system(take_away)
 
 # Faccio le pulizie e il caffè
@@ -43,9 +55,9 @@ print pulisco
 os.system(pulisco)
 
 # Pulizie di Primavera
-print "Cancello backup più vecchi di 20 giorni"
+print "Cancello backup più vecchi di 30 giorni"
 location = location.replace(giorno, "*")
 location = location.replace(mese, "*")
 location = location.replace(anno, "*")
-clean_old = "find "+location+" -mtime +20 -exec rm {} \;"
+clean_old = "find "+location+" -mtime +30 -exec rm {} \;"
 os.system(clean_old)
