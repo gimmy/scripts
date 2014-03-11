@@ -55,9 +55,12 @@ print pulisco
 os.system(pulisco)
 
 # Pulizie di Primavera
-print "Cancello backup più vecchi di 30 giorni"
+def spring_clean( n, string ):
+    print "Cancello backup più vecchi di n giorni"
+    clean_old = "find "+string+" -mtime +%d -exec rm {} \;" % (n, string)
+    os.system(clean_old)
+
 location = location.replace(giorno, "*")
 location = location.replace(mese, "*")
 location = location.replace(anno, "*")
-clean_old = "find "+location+" -mtime +30 -exec rm {} \;"
-os.system(clean_old)
+spring_clean( 30, location )
