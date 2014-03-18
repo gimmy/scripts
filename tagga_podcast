@@ -1,0 +1,53 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+import os, sys
+from datetime import date, timedelta
+
+def colora(i, string):
+	return "\033[%d;1m%s\033[0m" % (i, string)
+
+# Prendo podcast in input
+try:
+	podcast = sys.argv[1] # path del file 
+except:
+	print(colora(31, "Inserisci podcast"))
+	print("Usare: tagga_podcast podcast [info]")
+	sys.exit()
+
+try:
+	info = sys.argv[2] # info facoltative per titolo        
+except:
+        print("lascio info vuoto")
+        info = ""
+
+transmissione = "Alta Fedeltà"
+
+ieri = date.today() - timedelta(1)
+giorno = str(ieri.day)
+mese = str(ieri.month)
+anno = str(ieri.year)
+
+if(ieri.month < 10):
+        titolo= transmissione+" - "+giorno+"/"+"0"+mese+"/"+anno+" - "+info
+else:
+        titolo= transmissione+" - "+giorno+"/"++mese+"/"+anno+" - "+info
+print("> Titolo: %s" % titolo)
+
+autore = "RadioCicletta Podcast"
+album = autore
+
+print ("Metto tag")
+print ("id3v2 -t %s %s" % (titolo, podcast))
+tag_titolo="id3v2 -t "+'"'+titolo+'"'+" "+podcast
+os.system(tag_titolo)
+
+print ("id3v2 -a %s %s" % (autore, podcast))
+tag_autore="id3v2 -a "+'"'+autore+'"'+" "+podcast
+os.system(tag_autore)
+
+print ("id3v2 -A %s %s" % (album, podcast))
+tag_album="id3v2 -A "+'"'+album+'"'+" "+podcast
+os.system(tag_album)
+
+print ("Stampo tag")
+os.system("id3v2 -l %s" % (podcast) )

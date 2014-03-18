@@ -1,0 +1,22 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+import os, sys
+import datetime
+g
+def colora(i, string):
+	return "\033[%d;1m%s\033[0m" % (i, string)
+
+# Prendo i dati
+try:
+	cosa = sys.argv[1] # path del file 
+except:
+	print(colora(31, "Inserisci canzoni"))
+	sys.exit()
+
+today = datetime.date.today()
+path= "/media/archivio/trasmissioni/Alta_Fedelta"
+user = 'radiocicletta'
+host = '192.168.1.254'
+
+print ("Copio %s --> rsync %s@%s:%s/%s/" % (cosa, colora(31,user), colora(32,host), path, today ))
+os.system("rsync --progress --partial %s %s@%s:%s/%s/" % (cosa, user, host, path, today))
