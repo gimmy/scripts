@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os, sys
 import datetime
-g
+
 def colora(i, string):
 	return "\033[%d;1m%s\033[0m" % (i, string)
 
@@ -13,8 +13,10 @@ except:
 	print(colora(31, "Inserisci canzoni"))
 	sys.exit()
 
+trasmissione="Alta_Fedelta"
+
 today = datetime.date.today()
-path= "/media/archivio/trasmissioni/Alta_Fedelta"
+path= "/media/archivio/trasmissioni/"+trasmissione
 user = 'radiocicletta'
 host = '192.168.1.254'
 
