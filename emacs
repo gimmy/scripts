@@ -1,3 +1,4 @@
+;; General settings
 (setq make-backup-files nil)
 (tool-bar-mode  -1)
 (menu-bar-mode -1)
@@ -7,30 +8,44 @@
 (setq auto-mode-alist (cons '( "\\.m" . octave-mode) auto-mode-alist ) )
 (setq auto-mode-alist (cons '( "\\.less" . css-mode) auto-mode-alist ) )
 
+;; Packages: MELPA stable
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+;; and `package-pinned-packages`. Most users will not need or want to do this.
+;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
+
+;; Load Tango color theme theme
+(load-theme 'tangotango t)
+
+;; PHP
 (autoload 'php-mode "php-mode" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 
+;; OCaml
 (setq auto-mode-alist (cons '("\\.ml[iylp]?\\'" . tuareg-mode) auto-mode-alist))
   (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
     (autoload 'ocamldebug "ocamldebug" "Run the Caml debugger" t)
     
-;; (add-to-list 'load-path "/usr/share/doc/git/contrib/emacs")
-;; (require 'git)
-;; (require 'git-blame)
-
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
-
 ;; YASnippet
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/yas")
-(require 'yasnippet) ;; not yasnippet-bundle
-;; (yas/initialize)
-;; (yas/global-mode 1)
+(add-to-list 'load-path "~/.emacs.d/elpa/yasnippet-0.11.0/")
+;; (add-to-list 'yas-snippet-dirs "~/.emacs.d/elpa/yasnippet-0.11.0/yasnippet-snippets/")
+(require 'yasnippet)
+(yas-global-mode t)
 
-;; PKGBUILD Mode
-(autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
-(setq auto-mode-alist (append '(("/PKGBUILD$" . pkgbuild-mode)) auto-mode-alist))
+;; LaTeX
+(add-to-list 'load-path "~/.emacs.d/magic-latex-buffer/")
+(require 'tex-mode)
+(require 'magic-latex-buffer)
+(add-hook 'latex-mode-hook 'magic-latex-buffer 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'magic-latex-buffer 'flyspell-mode)
+;; (load "auctex.el" nil t t)
+;; (load "preview-latex.el" nil t t)
+(add-hook 'LaTeX-mode-hook
+      '(lambda ()
+         (TeX-add-symbols '("eqref" TeX-arg-ref (ignore)))))
 
 ;; Vala Mode
 (autoload 'vala-mode "vala-mode" "Major mode for editing Vala code." t)
@@ -39,54 +54,28 @@
 (add-to-list 'file-coding-system-alist '("\.vala$" . utf-8))
 (add-to-list 'file-coding-system-alist '("\.vapi$" . utf-8))
 
-
 ; Macro to load somethings
-(defun load-book ()
+(defun load-diary ()
   (interactive)
-  (desktop-change-dir "~/git/apnea")
+  (desktop-change-dir "~/git/diary")
   (desktop-save-mode 1)
   )
-(defun load-DBLP ()
+(defun load-Web ()
   (interactive)
-  (desktop-change-dir "~/git/DBLP")
-  (desktop-save-mode 1)
-  )
-(defun load-tw ()
-  (interactive)
-  (desktop-change-dir "~/git/tweetcionary")
-  (desktop-save-mode 1)
-  )
-(defun  bhalostrap ()
-  (interactive)
-  (desktop-change-dir "~/Web/www.bhalobasa.it/wordpress/wp-content/themes/the-bootstrap")
+  (desktop-change-dir "~/Web/public_hugo")
   (desktop-save-mode 1)
   )
 
-(add-to-list 'load-path "~/.emacs.d")
+;; hook on after-make-frame-functions
+(add-hook 'after-make-frame-functions 'test-win-sys)
 
-;; Color theme
-(require 'color-theme)
-;;(setq color-theme-load-all-themes nil)
-;;(require 'color-theme-tangotango)
-
-
-;; select theme - first list element is for windowing system, second is for console/terminal
-;; Source : http://www.emacswiki.org/emacs/ColorTheme#toc9
-;; (if window-system
-;;     (color-theme-initialize)
-;;     (color-theme-comidia))
-
-;; (setq color-theme-choices 
-;;      '(color-theme-comidia color-theme-comidia))
-
-;;(color-theme-tangotango)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (adwaita)))
- '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(package-selected-packages '(bibretrieve markdown-mode magit yasnippet auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
