@@ -5,11 +5,12 @@
 	history-view-vpane-position = 408
 	file-view-vpane-position = 572
 [user]
-	email = brocchi@poisson.phc.unipi.it
+	email = gianmarcobrocchi@gmail.com
 	name = Gianmarco Brocchi
 [color]
 	ui = auto
 [alias]
+	b = branch
 	s = status
 	c = commit -a
 	ci = commit -v
