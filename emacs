@@ -54,6 +54,10 @@
 (add-to-list 'file-coding-system-alist '("\.vala$" . utf-8))
 (add-to-list 'file-coding-system-alist '("\.vapi$" . utf-8))
 
+;; Markdown-mode
+(autoload 'markdown-mode "markdown-mode" "Major mode for editing markdown." t)
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+
 ; Macro to load somethings
 (defun load-diary ()
   (interactive)
@@ -75,7 +79,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
- '(package-selected-packages '(bibretrieve markdown-mode magit yasnippet auctex)))
+ '(package-selected-packages
+   '(dictionary org-roam-ui org-roam bibretrieve markdown-mode magit yasnippet auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
