@@ -69,6 +69,11 @@
   (desktop-change-dir "~/Web/public_hugo")
   (desktop-save-mode 1)
   )
+(defun load-BrR2 ()
+  (interactive)
+  (desktop-change-dir "~/Desktop/BrR2")
+  (desktop-save-mode 1)
+  )
 
 ;; hook on after-make-frame-functions
 (add-hook 'after-make-frame-functions 'test-win-sys)
@@ -80,10 +85,23 @@
  ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
  '(package-selected-packages
-   '(dictionary org-roam-ui org-roam bibretrieve markdown-mode magit yasnippet auctex)))
+   '(obsidian dictionary org-roam-ui org-roam bibretrieve markdown-mode magit yasnippet auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; tell ispell to skip \eqref,\label and \cref first madatory argument
+(let ((head (car ispell-tex-skip-alists))
+      (tail (cadr ispell-tex-skip-alists)))
+  (setq head (append '(("\\\\label" ispell-tex-arg-end 1))
+                     head))
+  (setq head (append '(("\\\\eqref" ispell-tex-arg-end 1))
+                     head))
+  (setq head (append '(("\\\\cref" ispell-tex-arg-end 1))
+                     head))
+  ;; (setq tail (append '(("myverbatim" . "\\\\end{myverbatim}"))
+  ;;                    tail))
+  (setq ispell-tex-skip-alists (list head tail)))
