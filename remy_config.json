@@ -1,0 +1,46 @@
+{
+    "sources": {
+	"slow-usb": {
+	    "name": "reMarkable (USB-SSH)",
+	    "type": "ssh",
+	    "host": "10.11.99.1",
+	    "key": "~/.ssh/id_ed25519",
+	    "username": "root",
+	    "timeout": 3,
+	    "use_banner": "remy-banner.png"
+	},
+	"RSync (USB)": {
+	    "name": "reMarkable (RSync)",
+	    "type": "rsync",
+	    "host": "10.11.99.1",
+	    "key": "~/.ssh/id_ed25519",
+	    "username": "root",
+	    "timeout": 3,
+	    "use_banner": "remy-banner.png",
+	    "cache_mode": "on_demand"
+	},
+	"wifi": {
+	    "name": "reMarkable (RSync)",
+	    "type": "rsync",
+	    "data_dir": "/home/gianmarco/remy",
+	    "host": "remarkable",
+	    "key": "~/.ssh/id_rsa",
+	    "username": "root",
+	    "timeout": 3,
+	    "use_banner": "remy-banner.png"
+	},
+	"backup": {
+	    "name": "Latest Backup",
+	    "type": "local",
+	    "documents": "/home/gianmarco/rM-backups/latest/documents",
+	    "templates": "/home/gianmarco/rM-backups/latest/templates"
+	}
+    },
+    "preview": {
+	"eraser_mode": "accurate"
+    },
+    "export": {
+	"default_dir": "/home/gianmarco/Documents",
+	"open_exported": true
+    }
+}
